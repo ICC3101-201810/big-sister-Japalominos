@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+
 
 namespace LabPOO
 {
@@ -14,7 +17,31 @@ namespace LabPOO
 
         static void Main(string[] args)
         {
-            cart = new List<Product>();
+            
+            try
+            {
+                using (Stream stream = File.Open("data.bin", FileMode.Create))
+                {
+                    
+
+                }
+            }
+            catch (IOException)
+            {
+            }
+            try
+            {
+                using (Stream stream = File.Open("data.bin", FileMode.Open))
+                {
+                    BinaryFormatter bin = new BinaryFormatter();
+
+                    var cart = (List<Product>)bin.Deserialize(stream);
+                }
+            }
+            catch (IOException)
+            {
+
+            }
             market = new List<Product>();
             SupplyStore();
             while (true)
@@ -47,10 +74,32 @@ namespace LabPOO
                     else if (answer == "4")
                     {
                         Pay();
+                        try
+                        {
+                            using (Stream stream = File.Open("data.bin", FileMode.Create))
+                            {
+                              
+
+                            }
+                        }
+                        catch (IOException)
+                        {
+                        }
                         break;
                     }
                     else if (answer == "5")
                     {
+                        try
+                        {
+                            using (Stream stream = File.Open("data.bin", FileMode.Create))
+                            {
+                                BinaryFormatter bin = new BinaryFormatter();
+                                bin.Serialize(stream, cart);
+                            }
+                        }
+                        catch (IOException)
+                        {
+                        }
                         Environment.Exit(1);
                     }
                 }

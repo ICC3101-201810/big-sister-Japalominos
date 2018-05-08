@@ -5,9 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace LabPOO
+
 {
+    [Serializable()]
     class Product
     {
+
         private string name;
         private int stock;
         private int price; //Price for one unit of the product
